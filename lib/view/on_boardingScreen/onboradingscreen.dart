@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_neww/model/utils/constants/color_connstants.dart';
+
 import 'package:flutter_application_neww/model/utils/constants/image_constants.dart';
+
+import 'package:flutter_application_neww/view/bottom_navbar_screen/bottomnavbar_screen.dart'; // Import the next screen
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -11,13 +14,44 @@ class OnboardingScreen extends StatelessWidget {
       body: Stack(
         children: [
           _background_image(),
-          _buildgradient_section(),
+          _buildgradient_section(
+              context), // Pass the context to the _buildgradient_section method
+          Positioned(
+            top: 30,
+            right: 0,
+            left: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                RichText(
+                    text: TextSpan(
+                        text: "60k+",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        children: [
+                      TextSpan(
+                          text: " Premium Recipies",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 16)),
+                    ]))
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget _buildgradient_section() {
+  Widget _buildgradient_section(BuildContext context) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -57,25 +91,35 @@ class OnboardingScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                color: ColorConstants.primaryColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Start Cooking",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    )
-                  ],
+              InkWell(
+                onTap: () {
+                  // Navigate to the next screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottomnavbarScreen()),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  color: ColorConstants.primaryColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Start Cooking",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ]),
